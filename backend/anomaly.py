@@ -82,3 +82,25 @@ def detect_price_anomalies(bars: list[dict]) -> list[dict]:
 
     return bars
 
+def get_anomaly_summary(bars: list[dict]):
+    if not bars:
+        return {}
+
+    volume_anomalies = [bar for bar in bars if bar["volume_anomaly"]]
+    count_volume_anomalies = len(volume_anomalies)
+    price_anomalies = [bar for bar in bars if bar["price_anomaly"]]
+    count_price_anomalies = len(price_anomalies)
+
+    peak = max(bars, key=lambda bar: bar.get("anomaly_score", 0))
+
+    summary = {
+        "total_bars": len(bars),
+        "count_volume_anomalies": count_volume_anomalies,
+        "count_price_anomalies": count_price_anomalies,
+        "peak_anomaly": {
+            "timestamp": peak["timestamp"],
+            "score": peak.get("anomaly_score", 0),
+            "close": peak.get("close", 0),
+        }
+    }
+    return summary

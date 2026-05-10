@@ -93,7 +93,7 @@ def get_price_bars(symbol: str, days: int = 30) -> list[dict]:
 
     return result
 
-def get_wartchlist() -> list[str]:
+def get_watchlist() -> list[str]:
     """
     Returns the current watchlist, ,keepign this fucntion
     allows us to make it dynamic later
