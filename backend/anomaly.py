@@ -53,7 +53,7 @@ def detect_volume_anomalies(bars: list[dict]) -> list[dict]:
     for i, bar in enumerate(bars):
         # for every bar add a volume_zscore/anomaly flag and then key value on it
         bar["volume_zscore"] = round(zscores[i], 2)
-        bar["volume_anomaly"] = zscores[i] >= 2.0
+        bar["volume_anomaly"] = bool(zscores[i] >= 2.0)
 
     return bars
 
@@ -75,7 +75,7 @@ def detect_price_anomalies(bars: list[dict]) -> list[dict]:
     anomalies = forest.decision_function(features)
 
     for i, bar in enumerate(bars):
-        bar["price_anomaly"] = predictions[i] == -1
+        bar["price_anomaly"] = bool(predictions[i] == -1)
         # normalize values (-0.5 looks weird to display so 0 is going
         # to be anomalous)
         bar["anomaly_score"] = round(float(1 - (anomalies[i] + 0.5)), 3)
