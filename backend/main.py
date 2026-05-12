@@ -7,35 +7,35 @@ app = FastAPI(title="MarketPulse API", version="1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
 )
 @app.get("/")
-async def home():
+def home():
     return {"message": "Hello World"}
 
 @app.get("/watchlist")
-async def get_watchlist():
+def fetch_watchlist():
     return get_watchlist()
 
 @app.get("/quotes")
-async def get_quotes():
+def fetch_quotes():
     try:
         return get_latest_quote()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/bars/{symbol}")
-async def get_bars(symbol: str, days: int = 30):
+def fetch_bars(symbol: str, days: int = 30):
     try:
         return get_price_bars(symbol, days)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/anomalies/{symbol}")
-async def get_anomalies(symbol: str, days: int = 30):
+def fetch_anomalies(symbol: str, days: int = 30):
 
     try:
         bars = get_price_bars(symbol, days)
