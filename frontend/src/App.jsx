@@ -40,30 +40,92 @@ function App() {
     }, [symbol]);
 
   return (
-      <div>
-        <h1>MarketWatch - {symbol}</h1>
+      <div className="app">
 
-          {/* ticker selector */}
-        <div>
-            {watchlist.map(ticker => (
-                <button
-                    key={ticker}
-                    onClick={() => setSymbol(ticker)}
-                >
-                    {ticker}
-                </button>
-            ))}
-        </div>
-          {/*data display*/}
-          {loading && <p>Loading...</p>}
-          {error && <p>Error: {error}</p>}
+          {/* header */}
+          <header className="header">
+              <div className="logo">
+                  <span className="logo-mark">▲</span>
+                  <span className="logo-text">Market
+                      <span>Pulse</span>
+                  </span>
+              </div>
+              <div className="watchlist-tabs">
+                  {watchlist.map(ticker => (
+                      <button
+                        key={ticker}
+                        className={`tab ${ticker === symbol ? "tab-active" : ""}`}
+                        onClick={() => setSymbol(ticker)}
+                      >
+                          {ticker}
+                      </button>
+                  ))}
+              </div>
+              <div className="header-right">
+                  <span className="live-badge">
+                  <span className="live-dot" />
+                      LIVE
+                  </span>
+              </div>
+          </header>
+
+        {/* stats bar */}
           {data && (
-              <div>
-                  <p>Total Bars: {data.summary.total_bars}</p>
-                  <p>Volume anomalies: {data.summary.count_volume_anomalies}</p>
-                  <p>Price anomalies: {data.summary.count_price_anomalies}</p>
+              <div className="stats-bar">
+                  <div className="stat">
+                      <span className="stat-label">SYMBOL</span>
+                      <span className="stat-value">{data.symbol}</span>
+                  </div>
+                  <div className="stat">
+                      <span className="stat-label">BARS ANALYZED</span>
+                      <span className="stat-value">{data.summary.total_bars}</span>
+                  </div>
+                  <div className="stat">
+                      <span className="stat-label">VOLUME ANOMALIES</span>
+                      <span className="stat-value">{data.summary.count_volume_anomalies}</span>
+                  </div>
+                  <div className="stat">
+                      <span className="stat-label">PRICE ANOMALIES</span>
+                      <span className="stat-value">{data.summary.count_price_anomalies}</span>
+                  </div>
+                  <div className="stat">
+                      <span className="stat-label">PEAK ANOMALY DATE</span>
+                      <span className="stat-value">
+                          {data.summary.peak_anomaly?.timestamp?.slice(0, 10)}</span>
+                  </div>
+                  <div className="stat">
+                      <span className="stat-label">PEAK SCORE</span>
+                      <span className="stat-value">
+                          {data.summary.peak_anomaly?.score}</span>
+                  </div>
               </div>
           )}
+
+          {/* main content */}
+          <div className="main">
+              <div className="chart-area">
+                  {loading && <div className="loading">Fetching market data...</div>}
+                  {error && <div className="error">Error: {error}</div>}
+                  {data && <p>Chart goes here - {data.bars.length} bars loaded</p>}
+              </div>
+              <div className="alert-panel">
+                  <h3 className="panel-title">ANOMALY ALERTS</h3>
+                  {data && data.bars
+                      .filter(bar => bar.volume_anomaly || bar.price_anomaly)
+                      .map(bar => (
+                          <div key={bar.timestamp} className="alert-item">
+                              <span className="alert-date">{bar.timestamp.slice(0, 10)}</span>
+                              <span className="alert-close">${bar.close}</span>
+                              <div className="alert-tags">
+                                  {data.bars.volume_anomaly && <span className="tag tag-volume">VOL</span>}
+                                  {data.bars.price_anomaly && <span className="tag tag-price">PRICE</span>}
+                              </div>
+                              <span className="alert-score">{bar.anomaly_score}</span>
+                          </div>
+                      ))
+                  }
+              </div>
+          </div>
 
       </div>
 
