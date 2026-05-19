@@ -28,14 +28,14 @@ def fetch_quotes():
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/bars/{symbol}")
-def fetch_bars(symbol: str, days: int = 30):
+def fetch_bars(symbol: str, days: int = 90):
     try:
         return get_price_bars(symbol, days)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/anomalies/{symbol}")
-def fetch_anomalies(symbol: str, days: int = 30):
+def fetch_anomalies(symbol: str, days: int = 90):
 
     try:
         bars = get_price_bars(symbol, days)

@@ -3,6 +3,7 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import {useState, useEffect} from "react";
+import CandlestickChart from "./components/CandlestickChart.jsx";
 
 const API = "http://localhost:8000"
 
@@ -47,7 +48,7 @@ function App() {
               <div className="logo">
                   <span className="logo-mark">▲</span>
                   <span className="logo-text">Market
-                      <span>Pulse</span>
+                      <span></span>
                   </span>
               </div>
               <div className="watchlist-tabs">
@@ -106,7 +107,7 @@ function App() {
               <div className="chart-area">
                   {loading && <div className="loading">Fetching market data...</div>}
                   {error && <div className="error">Error: {error}</div>}
-                  {data && <p>Chart goes here - {data.bars.length} bars loaded</p>}
+                  {data && <CandlestickChart bars={data.bars} symbol={symbol} />}
               </div>
               <div className="alert-panel">
                   <h3 className="panel-title">ANOMALY ALERTS</h3>

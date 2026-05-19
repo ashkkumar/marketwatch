@@ -60,7 +60,7 @@ this function fetches daily candlestick data -- open, high, low, close, volume f
 ticket. The days parameter defaults to 30 but we can pass any value. Alpaca returns a pandas
 Dataframe with a MultiIndex so we reset it to get a clean structure to work with
 """
-def get_price_bars(symbol: str, days: int = 30) -> list[dict]:
+def get_price_bars(symbol: str, days: int = 90) -> list[dict]:
     """
     Fetch daily OHLCV bars for a given symbol over the last N days
     This is what feeds the candlesticks chart on the frontend
