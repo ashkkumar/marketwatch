@@ -20,22 +20,24 @@ directly on an interactive candlestick chart.
 ## Setup
 1. Clone the repo
 2. Create `backend/.env`:
-\`\`\`
+```
 ALPACA_API_KEY=your_key_here
 ALPACA_SECRET_KEY=your_secret_here
-\`\`\`
+```
 3. Install backend dependencies:
-\`\`\`bash
+```
+bash
 cd backend
 pip install -r requirements.txt
 uvicorn main:app --reload
-\`\`\`
+```
 4. Install frontend dependencies:
-\`\`\`bash
+```
+bash
 cd frontend
 npm install
 npm run dev
-`\``
+```
 5. Open http://localhost:5173
 
 ## Architecture
