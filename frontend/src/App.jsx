@@ -4,6 +4,7 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import {useState, useEffect} from "react";
 import CandlestickChart from "./components/CandlestickChart.jsx";
+import TickerTape from "./components/TickerTape.jsx";
 
 const API = "http://localhost:8000"
 
@@ -69,6 +70,8 @@ function App() {
                   </span>
               </div>
           </header>
+
+          <TickerTape />
 
         {/* stats bar */}
           {data && (

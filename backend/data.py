@@ -13,16 +13,15 @@ import pandas as pd
 
 """
 this function reads .env file and makes the API keys avaialble as environment variables
-Your keys never appear in your code and is the correct way to handle credentials
 """
 load_dotenv()
 
 # Watchlist
-WATCHLIST = ["AAPL", "NVDA", "MSFT","GOOGL", "AMZN", "BBAI", "META", "JPM"]
+WATCHLIST = ["AAPL", "NVDA", "MSFT","GOOGL", "AMZN", "BBAI", "META", "JPM", "RBLX"]
 
 # Initialize the alpaca client using .env keys
 """
-StockHistoricalDataClient is Alpaca's client for fetching market data. You inialize it
+StockHistoricalDataClient is Alpaca's client for fetching market data. Initialize it
 once at module level so its reused across requests rather than recreated every time
 """
 client = StockHistoricalDataClient(
@@ -31,9 +30,8 @@ client = StockHistoricalDataClient(
     )
 
 """
-this fucntion fetches the current best bid and ask price for every ticket simulatenously
+this function fetches the current best bid and ask price for every ticket simulatenously
 in one API call, the mid price is the average of the bid and ask rounded to 2 decimals.
-This is a common way to estimate the "true" price
 """
 def get_latest_quote() ->list[dict]:
     """
