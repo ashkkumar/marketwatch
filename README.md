@@ -39,6 +39,7 @@ npm run dev
 5. Open http://localhost:5173
 
 ## Architecture
+
 \`\`\`
 Alpaca API → data.py → anomaly.py → FastAPI → React Dashboard
 \`\`\`
