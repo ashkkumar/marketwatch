@@ -1,4 +1,6 @@
 # Market Watcher — Live Market Intelligence Dashboard
+<img width="960" height="464" alt="market" src="https://github.com/user-attachments/assets/c319f10e-cb66-4c32-90ca-3de459a51231" />
+
 
 ## What it does
 Real-time market dashboard that ingests live stock data from Alpaca 
